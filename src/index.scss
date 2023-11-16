@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Helvetica";
+  src: url("./assets/fonts/HelveticaNeue-Regular.otf") format("opentype");
+}
+
+* {
+  @apply box-border;
+}
+body {
+  margin: 0;
+}
+.app {
+  @apply bg-gray min-h-screen flex flex-col md:flex-row justify-center items-center md:items-start py-8 px-4 gap-4;
+}
+.column {
+  @apply bg-gray-dark min-h-[20rem] max-h-[30rem] overflow-y-scroll text-white w-full md:w-[33%] max-w-[20rem] my-0 mx-4 rounded p-2;
+  &::-webkit-scrollbar {
+    @apply hidden;
+  }
+}
+.task {
+  @apply bg-white rounded min-h-[5rem] text-black p-2 flex flex-col justify-between mb-2;
+}
+.bottom-wrapper {
+  @apply flex justify-between items-center;
+}
+.status {
+  @apply text-sm bg-gray-light p-1 rounded;
+}
+.PLANNED {
+  @apply bg-gray-light;
+}
+.ONGOING {
+  @apply bg-ongoing;
+}
+.DONE {
+  @apply bg-done;
+}
+.title-wrapper {
+  @apply flex justify-between items-center mb-2;
+}
+.title-wrapper button {
+  @apply text-black bg-white p-1 rounded h-fit hover:bg-gray-light transition-all ease-linear;
+}
