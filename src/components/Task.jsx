@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { useStore } from "../store";
 import { FaTrash } from "react-icons/fa";
 
-// const STATUS = "PLANNED";
 const Task = ({ title }) => {
   const task = useStore((store) =>
     store.tasks.find((task) => task.title === title)
@@ -15,7 +14,7 @@ const Task = ({ title }) => {
     <div
       className="task cursor-grab"
       draggable={true}
-      onDragStart={setDraggedTask(task.title)}
+      onDragStart={()=>setDraggedTask(task.title)}
     >
       <div>{task.title}</div>
       <div className="bottom-wrapper">
