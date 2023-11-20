@@ -1,7 +1,18 @@
 import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 
-export default function Modal({ action, typing, text, close }) {
+export default function Modal({ action, typing, text, close, errorMessage }) {
+  const [placeholder, setPlaceholder] = useState(false);
+
+  useEffect(() => {
+    if (errorMessage) {
+      setPlaceholder(errorMessage);
+    } else {
+      setPlaceholder("Enter a task");
+    }
+  }, [errorMessage]);
+
   return (
     <div className="fixed bg-[rgba(0,0,0,0.3)] w-full h-full top-0 left-0">
       <form
@@ -11,8 +22,14 @@ export default function Modal({ action, typing, text, close }) {
         <input
           type="text"
           onChange={typing}
+          name="todo"
           value={text}
-          className="py-1 px-3 border border-black text-black"
+          className={
+            errorMessage
+              ? "py-1 px-3 border-2 border-red-500 placeholder:text-red-500 placeholder:font-bold transition-all ease-linear"
+              : "py-1 px-3 border-2 border-black text-black transition-all ease-linear"
+          }
+          placeholder={placeholder}
         />
         <button
           //   onClick={action}
@@ -34,4 +51,5 @@ Modal.propTypes = {
   action: PropTypes.func.isRequired,
   typing: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
+  errorMessage: PropTypes.string,
 };
