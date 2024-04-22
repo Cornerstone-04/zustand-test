@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 
@@ -6,11 +5,7 @@ export default function Modal({ action, typing, text, close, errorMessage }) {
   const [placeholder, setPlaceholder] = useState(false);
 
   useEffect(() => {
-    if (errorMessage) {
-      setPlaceholder(errorMessage);
-    } else {
-      setPlaceholder("Enter a task");
-    }
+    setPlaceholder(errorMessage ? errorMessage : "Enter a task");
   }, [errorMessage]);
 
   return (
@@ -44,11 +39,3 @@ export default function Modal({ action, typing, text, close, errorMessage }) {
     </div>
   );
 }
-
-Modal.propTypes = {
-  close: PropTypes.func.isRequired,
-  action: PropTypes.func.isRequired,
-  typing: PropTypes.func.isRequired,
-  text: PropTypes.string.isRequired,
-  errorMessage: PropTypes.string,
-};

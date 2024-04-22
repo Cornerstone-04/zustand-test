@@ -1,23 +1,17 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 import Task from "./Task";
-import { useStore } from "../store";
 import Modal from "./Modal";
 import { FaPlus } from "react-icons/fa";
 import classNames from "classnames";
 import { useFormik } from "formik";
 import { todoSchema } from "../schema";
+import { useStore } from "../utils/store";
 
 const Column = ({ state }) => {
   const [open, setOpen] = useState(false);
   const [drop, setDrop] = useState(false);
-  const addTask = useStore((store) => store.addTask);
-  const setDraggedTask = useStore((store) => store.setDraggedTask);
-  const draggedTask = useStore((store) => store.draggedTask);
-  const moveTask = useStore((store) => store.moveTask);
-  const tasks = useStore((store) =>
-    store.tasks.filter((task) => task.state === state)
-  );
+  const { addTask, setDraggedTask, draggedTask, moveTask, tasks } = useStore();
+  const tasksList = tasks.filter((task) => task.state === state);
 
   const { errors, touched, handleChange, handleSubmit, values } = useFormik({
     initialValues: { todo: "" },
@@ -48,7 +42,7 @@ const Column = ({ state }) => {
           <FaPlus />
         </button>
       </div>
-      {tasks.map((task) => (
+      {tasksList.map((task) => (
         <Task title={task.title} key={task.title} />
       ))}
       {open && (
@@ -65,10 +59,6 @@ const Column = ({ state }) => {
       )}
     </div>
   );
-};
-
-Column.propTypes = {
-  state: PropTypes.string.isRequired,
 };
 
 export default Column;
